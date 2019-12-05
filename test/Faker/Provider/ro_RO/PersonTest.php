@@ -7,7 +7,7 @@ use Faker\Provider\DateTime;
 use Faker\Provider\ro_RO\Person;
 use PHPUnit\Framework\TestCase;
 
-class PersonTest extends TestCase
+final class PersonTest extends TestCase
 {
     const TEST_CNP_REGEX = '/^[1-9][0-9]{2}(?:0[1-9]|1[012])(?:0[1-9]|[12][0-9]|3[01])(?:0[1-9]|[123][0-9]|4[0-6]|5[12])[0-9]{3}[0-9]$/';
 
@@ -17,7 +17,7 @@ class PersonTest extends TestCase
      */
     protected $faker;
 
-    public function setUp()
+    protected function setUp()
     {
         $faker = new Generator();
         $faker->addProvider(new DateTime($faker));
@@ -26,7 +26,7 @@ class PersonTest extends TestCase
         $this->faker = $faker;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->faker->setDefaultTimezone();
     }
@@ -239,7 +239,7 @@ class PersonTest extends TestCase
             foreach (range(0, 11) as $digit) {
                 $checksum += (int)substr($cnp, $digit, 1) * (int)substr($checkNumber, $digit, 1);
             }
-            $checksum = $checksum % 11;
+            $checksum %= 11;
             $checksum = $checksum == 10 ? 1 : $checksum;
 
             if ($checksum == substr($cnp, -1)) {

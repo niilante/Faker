@@ -6,7 +6,7 @@ use Faker\Generator;
 use Faker\Provider\en_UG\Address;
 use PHPUnit\Framework\TestCase;
 
-class AddressTest extends TestCase
+final class AddressTest extends TestCase
 {
 
 /**
@@ -14,16 +14,13 @@ class AddressTest extends TestCase
  */
   private $faker;
 
-  public function setUp()
+  protected function setUp()
   {
       $faker = new Generator();
       $faker->addProvider(new Address($faker));
       $this->faker = $faker;
   }
 
-  /**
-   * @test
-   */
   public function testCityName()
   {
     $city = $this->faker->cityName();
@@ -31,9 +28,6 @@ class AddressTest extends TestCase
     $this->assertInternalType('string', $city);
   }
 
-  /**
-   * @test
-   */
   public function testDistrict()
   {
     $district = $this->faker->district();
@@ -41,9 +35,6 @@ class AddressTest extends TestCase
     $this->assertInternalType('string', $district);
   }
 
-  /**
-   * @test
-   */
   public function testRegion()
   {
     $region = $this->faker->region();
